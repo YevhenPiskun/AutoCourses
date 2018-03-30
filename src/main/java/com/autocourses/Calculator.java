@@ -10,7 +10,7 @@ public class Calculator {
 
     private static final Map<String, Calculable> operation = new HashMap<>();
 
-    private Calculator() {
+    public Calculator() {
         operation.put("+", new Addition());
         operation.put("-", new Subtraction());
         operation.put("*", new Multiplication());
@@ -49,7 +49,7 @@ public class Calculator {
         }
     }
 
-    private double calculate(double val1, double val2, String operator) throws WrongOperationException {
+    public double calculate(double val1, double val2, String operator) throws WrongOperationException {
         Calculable operation = getOperationFor(operator);
         if (operation == null) {
             throw new WrongOperationException();
