@@ -1,6 +1,7 @@
 package calculator;
 
 import com.autocourses.Calculator;
+import com.autocourses.WrongEnteringException;
 import com.autocourses.WrongOperationException;
 import org.assertj.core.api.ThrowableAssert;
 import org.junit.After;
@@ -15,13 +16,11 @@ public class CalculatorTests {
 
     @Before
     public void setUp() {
-        System.out.println("Before each test");
         calculator = new Calculator();
     }
 
     @After
     public void tearDown() {
-        System.out.println("After each test");
         calculator = null;
     }
 
@@ -61,14 +60,22 @@ public class CalculatorTests {
     }
 
     @Test
-    public void shouldThrowExceptionIfOperationIsWrong2() throws WrongOperationException {
+    public void shouldThrowExceptionIfOperationIsWrong2() {
         double a = 200;
         double b = 100;
         String addition = "#";
 
         assertThatThrownBy(() -> calculator.calculate(a, b, addition)).isInstanceOf(WrongOperationException.class);
-
     }
 
+    @Test
+    public void shouldAddTwoNegativeNumbers() throws WrongOperationException {
+        double a = -100;
+        double b = -200;
+        String addition = "+";
+        double result = calculator.calculate(a, b, addition);
+
+        assertThat(result).isEqualTo(-300);
+    }
 
 }
